@@ -3,9 +3,14 @@ const express = require('express');
 const session = require('express-session');
 const uuid = require('uuid/v4');
 const FileStore = require('session-file-store')(session);
+const bodyParser = require('body-parser');
 
 // create the server
 const app = express();
+
+// add & configure middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // add & configure middleware
 app.use(session({
@@ -26,6 +31,19 @@ app.get('/', (req, res) => {
   console.log(req.sessionID);
   res.send(`You hit home page!\n`);
 });
+
+// create the login get and post routes
+app.get('/login', (req, res) => {
+  console.log('Inside GET /login callback function');
+  console.log(req.sessionID);
+  res.send(`You got the login page!\n`);
+})
+
+app.post('/login', (req, res) => {
+  console.log('Inside POST /login callback function');
+  console.log(req.body);
+  res.send(`You posted to the login page!\n`);
+})
 
 // tell the server what port to listen on
 app.listen(3000, () => {

@@ -101,6 +101,6 @@ app.get('/authrequired', (req, res) => {
 })
 
 // tell the server what port to listen on
-app.listen(3000, () => {
+app.listen(3001, () => {
   console.log('Listening on localhost:3000')
 })
